@@ -14,8 +14,8 @@ _default:
 build:
     #!/bin/bash
     set -ex -o pipefail
-    mkdir -p _out
-    xelatex -shell-escape -output-directory=_out main
-    biber --output-directory _out main
-    xelatex -shell-escape -output-directory=_out main
-    xelatex -shell-escape -output-directory=_out main
+    
+    xelatex -shell-escape main
+    biber main
+    xelatex -shell-escape main
+    xelatex -shell-escape main

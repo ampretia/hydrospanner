@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex -o pipefail
+set -e -o pipefail
 
 # the directory of the script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
