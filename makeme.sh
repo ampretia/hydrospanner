@@ -38,7 +38,7 @@ fi
 
 export tobuild
 docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t hydrospanner-${tobuild} --file ${tobuild}/dockerfile ${tobuild}
-cat ${DIR}/run.tmpl | envsubst > $HOME/.local/bin/hs${tobuild}
+cat run.tmpl | envsubst > $HOME/.local/bin/hs${tobuild}
 chmod +x $HOME/.local/bin/hs${tobuild}
 echo "Installed 'hs${tobuild}' to $HOME/.local/bin"
 popd
