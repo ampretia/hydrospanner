@@ -1,0 +1,26 @@
+FROM ubuntu:latest
+
+ARG UID=1000
+ARG GID=1000
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get upgrade -y 
+
+RUN apt-get install latexmk texlive-xetex texlive-science python3-pygments biber \
+                    curl jq iputils-ping vim -y 
+
+RUN curl -sSL https://github.com/IBM/plex/releases/download/v5.2.1/OpenType.zip -o opentype.zip && \
+     unzip opentype.zip && \
+     mv OpenType/*  /usr/share/fonts/opentype/ && \
+     rm opentype.zip
+  
+RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
+
+RUN groupadd -g "${GID}" me \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" me
+
+USER me
+WORKDIR /home/me/workspace
+COPY justfile /home/me/justfile
+ENTRYPOINT [ "/usr/bin/just" ]
